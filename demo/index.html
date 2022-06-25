@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Markdown</title>
+    <!-- <script src='js/lute.min.js'></script> -->
+    <script>
+        // window['lute'] = Lute.New();
+    </script>
+</head>
+<style>
+    body {
+        padding: 0 50px;
+        /* background: #eee */
+        background: #fff
+    }
+    a{
+        color: #4285f4;
+        text-decoration: underline;
+    }
+    .hide {
+        display: none;
+    }
+    ol, ul, li {
+        margin: 0;
+        padding: 0;
+    }
+    ul, ol {
+        margin-left: 20px;
+    }
+
+    .my-editor {
+        /* border: 2px solid #ddd; */
+        width: 1600px;
+        min-height: 800px;
+        display: flex;
+        margin: 20px auto;
+        justify-content: center;
+    }
+    button {
+        padding: 5px 10px
+    }
+    .toolbar {
+        display: flex;
+        justify-content:space-between;
+        margin-top: 25px;
+    }
+    .list {
+        width: 250px;
+        background: rgb(197, 196, 196)
+    }
+    .list ul, .list li {
+        list-style: none;
+        margin: 0;
+        padding:0;
+    }
+    .list li {
+        cursor: pointer;
+        margin: 10px;
+        padding: 5px 10px;
+        border-bottom: 1px solid #999
+    }
+    .list li:hover, .list li.curr {
+        background: #888;
+        color: #fff;
+    }
+    pre {
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        padding: 10px;
+        margin: 0;
+        box-sizing: border-box;
+    }
+    .editor-pre{
+        min-height: 800px;;
+        line-height: 2;
+        font-size: 16px;
+        color: #333333;
+        font-family: Arial,'Microsoft YaHei','微软雅黑','黑体',Heiti,sans-serif,SimSun,'宋体',serif;
+        overflow: scroll;
+        width: 50%;
+        height: 100%;
+        /* height: 600px; */
+        outline: 0 none;
+        background-color: #fff;
+        padding: 10px 20px;
+        box-shadow: 0px 0px 8px 3px #ccc
+    }
+    .editor-pre.preview{
+        background-color: #fafbfc;
+        border-left: 2px solid #ddd
+    }
+    .editor-pre::after{
+        content: ' ';
+    }
+    .editor-pre h1::before,
+    .editor-pre h2::before,
+    .editor-pre h3::before,
+    .editor-pre h4::before,
+    .editor-pre h5::before,
+    .editor-pre h6::before,
+    .editor-pre p:empty::before,
+    p::after
+    {
+        content: ' ';
+    }
+
+    .editor-pre p {
+        margin: 10px 0;
+    }
+
+    .editor-pre blockquote {
+        color: #6a737d;
+        border-left: 3px solid rgb(196, 199, 204);
+        margin: 0 0 18px 0px;
+        padding: 0 16px
+    }
+    .editor-pre img{
+        max-width: 100%;
+    }
+    .editor-pre table{
+        border-collapse: collapse;
+        empty-cells: show;
+        margin-bottom: 16px;
+        overflow: auto;
+        border-spacing: 0;
+        word-break: keep-all;
+        width: 100%;
+    }
+    .editor-pre table tr {
+        border: 1px solid #ddd;
+        padding: 5px;
+    }
+    .editor-pre table th, .editor-pre table td{
+        border: 1px solid #ddd;
+        padding: 10px;
+    }
+    .editor-pre .editor-marker {
+        color: #660e7a;
+        font-weight: bold;
+        opacity: 0.5;
+    }
+    .editor-pre .list-style-none{
+        list-style: none;
+    }
+    .editor-pre input{
+        margin: 0 10px 3px 0;
+        vertical-align: middle;
+    }
+    .editor-pre pre.code-block {
+        background-color: rgba(27, 31, 35, .05);
+        margin-bottom: 10px;
+        border-radius: 3px;
+    }
+    .editor-pre .code-block-inline {
+        background-color: rgba(27, 31, 35, .05);
+        margin-bottom: 10px;
+        border-radius: 3px;
+        padding: 3px 10px;
+    }
+    .curr{
+        background: green;
+        color: #fff
+    }
+
+
+    .dark {
+        background: rgb(47, 54, 61);
+    }
+    .dark .list{
+        background-color: #1d2125;
+        color: #fff
+    }
+    .dark .my-editor{
+        border: none;
+    }
+    .dark span{
+        color: #fff
+    }
+    .dark .editor-pre{
+        background-color:#24292e ;
+        color: #d1d5da
+    }
+    .dark pre.code-block{
+        background-color: rgba(66, 133, 244, .36);
+    }
+    .dark .code-block-inline {
+        background-color: rgba(66, 133, 244, .36);
+    }
+    .dark .editor-pre.preview{
+        background-color: #2f363d;
+        border: 2px solid #141414
+    }
+    .dark .editor-pre .editor-marker {
+        color: #93c51e
+    }
+</style>
+<body class='light'>
+    <div class="toolbar">
+        <div>
+           <!-- <button class="mode-btn curr" onclick="changeMode(1)">实时渲染模式</button>&nbsp;&nbsp;&nbsp;<button class="mode-btn" onclick="changeMode(2)">分屏模式</button>&nbsp;&nbsp;&nbsp;<button class="mode-btn" onclick="changeMode(3)">源码模式</button> -->
+        </div>
+    </div>
+    <div id="myEditor" class="my-editor"></div>
+</body>
+</html>
