@@ -18,8 +18,9 @@ npm install web-editor-markdown --save
 * Using it
 ```ts
 import { Editor, withUndoRedo } from "web-editor-markdown";
-let editor = new Editor(ele); // 初始化编辑器对象, ele 为 dom 容器
+let editor = new Editor(document.getElementById('id')); // 初始化编辑器对象, ele 为 dom 容器
 editor = withUndoRedo(editor); // “撤销回退”插件生效
+editor.insertTextAtCursor('**这是加粗文本**'); // 插入 markdown 内容
 ```
 
 * other
