@@ -1,5 +1,8 @@
 ## 💡 Web Editor Markdown
 [web-editor-markdown](https://github.com/Ben-love-zy/web-editor-markdown.git) 是一款基于 Web 浏览器，即时渲染的 Markdown 编辑器。它基于 TypeScript 和 JavaScript 打造，并且不依赖任何第三方框架，对中文支持友好，可以方便的进行扩展并接入到原生 JavaScript、Vue、React、Angular等应用中。它提供`源码模式`、`双屏渲染模式`、`实时编辑模式`和`只读模式`四种渲染模式。如果有需要，它的底层同时也支持了协同编辑的能力，提供了原子操作 `Operation` 用于扩展协同编辑。
+
+[web-editor-markdown](https://github.com/Ben-love-zy/web-editor-markdown.git) is a Markdown editor based on Web browser and real-time rendering. It is based on TypeScript and JavaScript, and does not rely on any third-party framework. It supports Chinese friendly and can be easily extended and connected to native JavaScript, Vue, React, Angular and other applications. It provides four rendering modes: `SOURCE`, `SOURCE_AND_PREVIEW`, `RENDER` and `PREVIEW`. If necessary, its underlying layer also supports the ability of collaborative editing and provides atomic `Operation` for extending collaborative editing.
+
 ### ✨ 中文演示
 !['中文演示图'](https://static.yximgs.com/udata/pkg/IS-DOCS-MD/zengyong/img/demo-zh.gif)
 ### ✨ 英文演示
