@@ -3,6 +3,7 @@
  * @Author: ZengYong
  * @CreateDate: 2021-09-17 19:19:18
  */
+import './assets/index.less';
 import { TextModel, SelectionModel } from './model';
 import { InsertTextOperation, RemoveTextOperation, SetSelectionOperation, Operation} from './operations';
 import { ViewProvider, ViewMode, View } from './view'
@@ -58,7 +59,7 @@ export class Editor {
     element.setAttribute("contenteditable", "true");
     element.setAttribute("spellcheck", "false");
     // element.setAttribute("style", "width: 50%; height: 100%; outline: 0 none; background-color: #fff");
-    element.setAttribute("class", "editor-pre");
+    element.setAttribute("class", "web-editor-pre");
     this.elementContainer_.appendChild(element);
     // element.innerHTML = '<blockquote i="0-23"><ul i="2-23"><li i="2-8"><p i="4-8">123</p></li><li i="10-23"><p i="12-23">456<strong i="3-10">789</strong>0</p></li></ul></blockquote>'
     this.element_ = element;
@@ -100,8 +101,6 @@ export class Editor {
   /** 所有 operation 执行的入口函数 */
   apply (operation: Operation) {
     operation.apply(this);
-    // console.error('apply', this.textModel_, this.selectionModel_)
-    // this.operations_.push(operation);
     this.focus();
   }
   

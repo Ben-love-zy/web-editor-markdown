@@ -246,7 +246,7 @@ export class BaseView extends EventEmitter {
       }
       while (markerNode) {
         let className = markerNode.getAttribute('class');
-        if (className === 'editor-pre') {
+        if (className === 'web-editor-pre') {
           break;
         }
         if (className === 'editor-block') {
@@ -288,7 +288,7 @@ export class BaseView extends EventEmitter {
       while (anchorNode) {
         if (!(anchorNode instanceof Text)) {
           const className = anchorNode.getAttribute('class');
-          if (className && className.indexOf('editor-pre') > -1) {
+          if (className && className.indexOf('web-editor-pre') > -1) {
             break;
           }
           if (anchorNode?.tagName.toLowerCase() === tagName) {

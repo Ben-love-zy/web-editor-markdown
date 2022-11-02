@@ -1,19 +1,19 @@
 {
   "name": "web-editor-markdown",
   "version": "1.0.1",
-  "description": "web 版 Markdown 编辑器",
-  "main": "dist/index.js",
+  "description": "支持协同编辑的 web 版 Markdown 编辑器",
+  "main": "dist/index.min.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack serve --open",
-    "build:demo": "webpack --config webpack.config.demo.js",
-    "build:sdk": "webpack --config webpack.config.sdk.js",
-    "pub": "npm version patch && npm publish && git push --follow-tags"
+    "build": "webpack --config webpack.config.sdk.js"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/Ben-love-zy/web-editor-markdown.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Ben-love-zy/web-editor-markdown/issues"
   },
   "keywords": [
     "markdown",
@@ -22,22 +22,26 @@
     "Collaborative editing",
     "在线编辑器"
   ],
-  "author": "Ben",
-  "license": "ISC",
+  "author": "Yong Zeng<303328447@qq.com>",
+  "license": "MIT",
   "dependencies": {
     "commonmark": "^0.30.0",
     "events": "^3.3.0",
-    "is-hotkey": "^0.2.0",
-    "localforage": "^1.10.0"
+    "is-hotkey": "^0.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.15.5",
     "@babel/preset-env": "^7.15.6",
     "@types/commonmark": "^0.27.5",
     "@types/is-hotkey": "^0.1.5",
+    "autoprefixer": "^10.4.13",
     "babel-loader": "^8.2.2",
     "copy-webpack-plugin": "^9.0.1",
+    "css-loader": "^6.7.1",
     "html-webpack-plugin": "^5.3.2",
+    "less-loader": "^6.2.0",
+    "postcss-loader": "^7.0.1",
+    "style-loader": "^3.3.1",
     "ts-loader": "^9.2.5",
     "typescript": "^4.4.3",
     "webpack": "^5.52.1",

@@ -1,24 +1,25 @@
-import { Editor, EditorViewMode } from "../src";
-import { withUndoRedo } from "../src/extend/undo-redo";
+import { Editor, EditorViewMode, withUndoRedo } from "../src";
 import { text } from "./text";
 const container = document.getElementById('myEditor');
 
 let editor: Editor;
 if (container) {
-  const modeCache = parseInt(localStorage.getItem('mode-cache') || '1');
-  window['editor'] = editor = withUndoRedo(new Editor(container, { placeholder: '请输入内容！'}));
+  editor = withUndoRedo(new Editor(container, { placeholder: '请输入内容！'}));
   editor.insertTextAtCursor(text);
-
-  // const btns = document.getElementsByClassName('mode-btn');
+  console.log('获取内容', editor.getContent());
+  const btns = document.getElementsByClassName('mode-btn');
   window['changeMode'] = (n: number) => {
-    localStorage.setItem('mode-cache', '' + n);
-    // for (let i = 0; i < btns.length; i++) {
-    //   btns[i].setAttribute('class', 'mode-btn');
-    // }
-    // btns[n - 1].setAttribute('class', 'mode-btn curr');
-    // const mode = getModeByIndex(n);
-    // editor.switchViewMode(mode);
+    for (let i = 0; i < btns.length; i++) {
+      btns[i].setAttribute('class', 'mode-btn');
+    }
+    btns[n - 1].setAttribute('class', 'mode-btn curr');
+    switch (n) {
+      case 1: editor.switchViewMode(EditorViewMode.RENDER);break;
+      case 2: editor.switchViewMode(EditorViewMode.SOURCE_AND_PREVIEW);break;
+      case 3: editor.switchViewMode(EditorViewMode.SOURCE);break;
+      case 4: editor.switchViewMode(EditorViewMode.PREVIEW);break;
+      default: editor.switchViewMode(EditorViewMode.RENDER);break;
+    }
   }
-
-  window['changeMode'](modeCache);
+  window['changeMode'](1);
 }

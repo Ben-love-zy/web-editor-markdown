@@ -14,10 +14,38 @@ module.exports = {
   },
   devtool:'eval-source-map',
   resolve: {
-    extensions: ['.js', '.ts', '.png', '.scss'],
+    extensions: ['.js', '.ts', 'less', '.png', '.scss'],
   },
   module: {
     rules: [
+      {
+        test: /\.less$/,
+        include: [path.resolve(__dirname, 'src')],
+        use: [
+          {
+            loader: 'style-loader',
+          },
+          {
+            loader: 'css-loader', // translates CSS into CommonJS
+            options: {
+              url: false,
+            },
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              postcssOptions: {
+                plugins: [
+                  ['autoprefixer', {grid: true, remove: false}],
+                ],
+              },
+            },
+          },
+          {
+            loader: 'less-loader', // compiles Sass to CSS
+          },
+        ],
+      },
       {
         test: /\.scss$/,
         include: [path.resolve(__dirname, 'src')],
@@ -103,7 +131,7 @@ module.exports = {
     static: {
       directory: path.join(__dirname, '.'),
     },
-    port: 9000,
+    port: 9001,
     host: 'localhost',
     proxy: {
       '/api': {

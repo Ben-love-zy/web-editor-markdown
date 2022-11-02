@@ -3,7 +3,7 @@
  * @Author: ZengYong
  * @CreateDate: 2021-11-17 12:20:04
  */
-import { Operation } from "../../";
+import { Operation } from "../..";
 
 export interface History {
   redos: Operation[][]

@@ -10,10 +10,10 @@ import SourceView from "./source-view";
 import { TextModel, SelectionModel } from "../model/";
 
 export enum ViewMode {
-  PREVIEW, // 预览-只读模式
-  RENDER, // 实时渲染模式
-  SOURCE, // 源码模式
-  SOURCE_AND_PREVIEW // 双屏模式
+  PREVIEW = 'PREVIEW', // 预览-只读模式
+  RENDER = 'RENDER', // 实时渲染模式
+  SOURCE = 'SOURCE', // 源码模式
+  SOURCE_AND_PREVIEW = 'SOURCE_AND_PREVIEW' // 双屏模式
 };
 
 export type View = PreviewView | RenderView | SourceAndPreviewView | SourceView;

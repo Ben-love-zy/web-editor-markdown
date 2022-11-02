@@ -17,7 +17,7 @@ class SourceAndPreviewView extends BaseView {
     const previewElement = document.createElement("pre");
     // previewElement.setAttribute("spellcheck", "false");
     // previewElement.setAttribute("style", "width: 50%; background-color: #fafbfc;border-left: 2px solid #ddd");
-    previewElement.setAttribute("class", "editor-pre preview");
+    previewElement.setAttribute("class", "web-editor-pre preview");
     this.viewContainer_.parentElement?.appendChild(previewElement);
     this.previewElement_ = previewElement;
   }
