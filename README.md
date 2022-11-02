@@ -5,7 +5,7 @@
 
 ### ✨ 中文演示
 !['中文演示图'](https://static.yximgs.com/udata/pkg/IS-DOCS-MD/zengyong/img/demo-zh.gif)
-### ✨ 英文演示
+### ✨ Demo
 ![Demo](https://static.yximgs.com/udata/pkg/IS-DOCS-MD/zengyong/img/demo-en.gif)
 ### 🔮 在线体验 Demo 地址
   [点击体验](https://static.yximgs.com/udata/pkg/IS-DOCS-MD/zengyong/demo2/index.html)

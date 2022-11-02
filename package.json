@@ -1,9 +1,12 @@
 {
   "name": "web-editor-markdown",
-  "version": "1.0.1",
+  "version": "1.0.0",
   "description": "支持协同编辑的 web 版 Markdown 编辑器",
   "main": "dist/index.min.js",
   "types": "dist/index.d.ts",
+  "files": [
+    "dist/*"
+  ],
   "scripts": {
     "start": "webpack serve --open",
     "build": "webpack --config webpack.config.sdk.js"
