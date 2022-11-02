@@ -1,12 +1,10 @@
 
 const path = require('path')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const CopyPlugin = require('copy-webpack-plugin')
 
 module.exports = {
   mode: 'production',
   output: {
-    filename: '[name].js',
+    filename: '[name].min.js',
     path: path.resolve(__dirname, './dist'),
   },
   entry: {
@@ -17,6 +15,34 @@ module.exports = {
   },
   module: {
     rules: [
+      {
+        test: /\.less$/,
+        include: [path.resolve(__dirname, 'src')],
+        use: [
+          {
+            loader: 'style-loader',
+          },
+          {
+            loader: 'css-loader', // translates CSS into CommonJS
+            options: {
+              url: false,
+            },
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              postcssOptions: {
+                plugins: [
+                  ['autoprefixer', {grid: true, remove: false}],
+                ],
+              },
+            },
+          },
+          {
+            loader: 'less-loader', // compiles Sass to CSS
+          },
+        ],
+      },
       {
         test: /\.scss$/,
         include: [path.resolve(__dirname, 'src')],
