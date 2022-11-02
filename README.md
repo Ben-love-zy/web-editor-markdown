@@ -11,21 +11,21 @@
   [点击体验](https://static.yximgs.com/udata/pkg/IS-DOCS-MD/zengyong/demo2/index.html)
 
 ### 🛠️ 使用说明
-* Installing it
+* 安装
 ```shell
 npm install web-editor-markdown --save
 ```
-* Using it
+* 使用
 ```ts
 import { Editor, withUndoRedo } from "web-editor-markdown";
 let editor = new Editor(document.getElementById('id')); // 初始化编辑器对象, ele 为 dom 容器
 editor = withUndoRedo(editor); // “撤销回退”插件生效
-editor.insertTextAtCursor('**这是加粗文本**'); // 插入 markdown 内容
+editor.insertTextAtCursor('**这是加粗文本**\n> 提示：通过 `cmd+/` 可以切换源码模式哦'); // 插入 markdown 内容
 ```
 
-* other
+* 其他（更多 api 参考官网）
 ```ts
 import { EditorViewMode } from "web-editor-markdown";
-editor.switchViewMode(EditorViewMode.PREVIEW); // 切换模式：实时渲染、预览、源码、双屏模式
+editor.switchViewMode(EditorViewMode.PREVIEW); // 切换模式：实时渲染、预览、源码、双屏模式，或者通过 cmd+/ 切换源码模式和实时渲染模式
 console.log('content', editor.getContent()); // 获取编辑内容
 ```
