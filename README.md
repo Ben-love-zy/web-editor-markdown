@@ -1,11 +1,11 @@
 
 <p align="center">
-<img alt="web-editor-markdown" src="https://github.com/Ben-love-zy/web-editor-markdown/blob/master/markdown.jpeg" />
+<img width=130 alt="web-editor-markdown" src="https://github.com/Ben-love-zy/web-editor-markdown/blob/master/markdown.jpeg" />
 <br>
 基于 web 端的 Markdown 编辑器，支持协同编辑扩展和方便的插件扩展
 <br><br>
 <a title="npm bundle size" target="_blank" href="https://www.npmjs.com/package/web-editor-markdown"><img alt="npm bundle size" src="https://img.shields.io/bundlephobia/minzip/web-editor-markdown?style=flat-square&color=blueviolet"></a>
-<a title="Version" target="_blank" href="https://www.npmjs.com/package/web-editor-markdown"><img src="https://img.shields.io/npm/v/web-editor-markdown.svg?style=flat-square"></a><br>
+<a title="Version" target="_blank" href="https://www.npmjs.com/package/web-editor-markdown"><img src="https://img.shields.io/npm/v/web-editor-markdown.svg?style=flat-square"></a>
 <a title="Downloads" target="_blank" href="https://www.npmjs.com/package/web-editor-markdown"><img src="https://img.shields.io/npm/dt/web-editor-markdown.svg?style=flat-square&color=97ca00"></a>
 <!-- <a title="Visitors" target="_blank" href="javascript:;"><img src="https://visitor-badge.glitch.me/badge?page_id=zengyong.web-editor-markdown"></a> -->
 <br>
