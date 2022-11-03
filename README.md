@@ -1,3 +1,10 @@
+<br>
+基于 web 端的 Markdown 编辑器，支持协同编辑扩展和方便的插件扩展
+<br><br>
+<a title="npm bundle size" target="_blank" href="https://www.npmjs.com/package/web-editor-markdown"><img alt="npm bundle size" src="https://img.shields.io/bundlephobia/minzip/web-editor-markdown?style=flat-square&color=blueviolet"></a>
+<a title="Version" target="_blank" href="https://www.npmjs.com/package/web-editor-markdown"><img src="https://img.shields.io/npm/v/web-editor-markdown.svg?style=flat-square"></a><br>
+<a title="Downloads" target="_blank" href="https://www.npmjs.com/package/web-editor-markdown"><img src="https://img.shields.io/npm/dt/web-editor-markdown.svg?style=flat-square&color=97ca00"></a>
+<a title="Visitors" target="_blank" href="javascript:;"><img src="https://visitor-badge.glitch.me/badge?page_id=zengyong.web-editor-markdown"></a> <br><br>
 ## 💡 Web Editor Markdown
 [web-editor-markdown](https://github.com/Ben-love-zy/web-editor-markdown.git) 是一款基于 Web 浏览器，即时渲染的 Markdown 编辑器。它基于 TypeScript 和 JavaScript 打造，并且不依赖任何第三方框架，对中文支持友好，可以方便的进行扩展并接入到原生 JavaScript、Vue、React、Angular等应用中。它提供`源码模式`、`双屏渲染模式`、`实时编辑模式`和`只读模式`四种渲染模式。如果有需要，它的底层同时也支持了协同编辑的能力，提供了原子操作 `Operation` 用于扩展协同编辑。
 
@@ -7,8 +14,6 @@
 !['中文演示图'](https://static.yximgs.com/udata/pkg/IS-DOCS-MD/zengyong/img/demo-zh.gif)
 ### ✨ Demo
 ![Demo](https://static.yximgs.com/udata/pkg/IS-DOCS-MD/zengyong/img/demo-en.gif)
-### 🔮 在线体验 Demo 地址
-  [点击体验](https://static.yximgs.com/udata/pkg/IS-DOCS-MD/zengyong/demo2/index.html)
 
 ### 🛠️ 使用说明
 * 安装
