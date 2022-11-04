@@ -1,6 +1,6 @@
 
 <p align="center">
-<img width=130 alt="web-editor-markdown" src="https://github.com/Ben-love-zy/web-editor-markdown/blob/master/markdown.jpeg" />
+<img width=130 alt="web-editor-markdown" src="https://gitee.com/zengyong2020/web-editor-markdown/blob/master/markdown.jpeg" />
 <br>
 基于 web 端的 Markdown 编辑器，支持协同编辑扩展和方便的插件扩展
 <br><br>
@@ -29,7 +29,7 @@ npm install web-editor-markdown --save
 * 使用
 ```ts
 import { Editor, withUndoRedo } from "web-editor-markdown";
-let editor = new Editor(document.getElementById('id')); // 初始化编辑器对象, ele 为 dom 容器
+let editor = new Editor(document.getElementById('id')); // 初始化编辑器对象
 editor = withUndoRedo(editor); // “撤销回退”插件生效
 editor.insertTextAtCursor('**这是加粗文本**\n> 提示：通过 `cmd+/` 可以切换源码模式哦'); // 插入 markdown 内容
 ```
