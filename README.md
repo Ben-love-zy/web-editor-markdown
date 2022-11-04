@@ -17,7 +17,7 @@
 [web-editor-markdown](https://github.com/Ben-love-zy/web-editor-markdown.git) is a Markdown editor based on Web browser and real-time rendering. It is based on TypeScript and JavaScript, and does not rely on any third-party framework. It supports Chinese friendly and can be easily extended and connected to native JavaScript, Vue, React, Angular and other applications. It provides four rendering modes: `SOURCE`, `SOURCE_AND_PREVIEW`, `RENDER` and `PREVIEW`. If necessary, its underlying layer also supports the ability of collaborative editing and provides atomic `Operation` for extending collaborative editing.
 
 ### ✨ 中文演示
-!['中文演示图'](https://gitee.com/zengyong2020/web-editor-markdown/raw/master/demo-zh.gif)
+![中文演示图](https://gitee.com/zengyong2020/web-editor-markdown/raw/master/demo-zh.gif)
 ### ✨ Demo
 ![Demo](https://gitee.com/zengyong2020/web-editor-markdown/raw/master/demo-en.gif)
 
