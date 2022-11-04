@@ -1,6 +1,6 @@
 
 <p align="center">
-<img width=130 alt="web-editor-markdown" src="https://gitee.com/zengyong2020/web-editor-markdown/blob/master/markdown.jpeg" />
+<img width=130 alt="web-editor-markdown" src="https://gitee.com/zengyong2020/web-editor-markdown/raw/master/markdown.jpeg" />
 <br>
 基于 web 端的 Markdown 编辑器，支持协同编辑扩展和方便的插件扩展
 <br><br>
