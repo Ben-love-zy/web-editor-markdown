@@ -1,3 +1,4 @@
+
 .web-editor-pre{
     white-space: pre-wrap;
     word-wrap: break-word;
@@ -46,8 +47,13 @@
     p:empty::before {
         content: ' ';
     }
+    
     p {
         margin: 10px 0;
+        &::after
+        {
+            content: ' ';
+        }
     }
     blockquote {
         color: #6a737d;
