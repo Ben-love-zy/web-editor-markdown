@@ -1,6 +1,6 @@
 {
   "name": "web-editor-markdown",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "支持协同编辑的 web 版 Markdown 编辑器",
   "main": "dist/index.min.js",
   "types": "dist/index.d.ts",
