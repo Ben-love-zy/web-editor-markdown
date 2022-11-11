@@ -12,7 +12,8 @@ export interface ICompleterProps {
 export interface ICompleterResult {
   completeInput: string,
   lineRest: string,
-  cursor?: number
+  cursor?: number,
+  needDeleteTab?: boolean
 }
 
 export interface IDeleteProps {

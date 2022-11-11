@@ -114,6 +114,13 @@ export class ListItemCreater extends Creater {
 				}
 			}
 		}
+		if (!lineRest) {
+			completerResult = {
+				completeInput: '',
+				lineRest,
+				needDeleteTab: true
+			}
+		}
 		// completerResult.needDeletePreLine = needDeletePreLine;
 		return completerResult;
 	}

@@ -45,7 +45,6 @@ export class Editor {
       ...config
     };
     this.initElement_();
-    // this.initStyle_();
     this.textModel_ = new TextModel();
     this.selectionModel_ = new SelectionModel(this.textModel_);
     this.viewProvider_ = new ViewProvider();
@@ -72,12 +71,12 @@ export class Editor {
     this.view_.render();
   }
 
-  private initStyle_ () {
-    const style = document.createElement('style');
-    style.innerHTML='.marker{ display: none }';
-    document.getElementsByTagName('HEAD').item(0)?.appendChild(style);
-    this.style_ = style;
-  }
+  // private initStyle_ () {
+  //   const style = document.createElement('style');
+  //   style.innerHTML='.marker{ display: none }';
+  //   document.getElementsByTagName('HEAD').item(0)?.appendChild(style);
+  //   this.style_ = style;
+  // }
 
   getTextModel () {
     return this.textModel_;
@@ -119,9 +118,20 @@ export class Editor {
         startIndex = selection.focus;
       }
     }
-    const cursorDelta = enterComplete.cursorDelta === undefined ? text.length : enterComplete.cursorDelta;
-    this.apply(new InsertTextOperation(text, startIndex));
-    this.setSelection(startIndex + cursorDelta); // 更新选区光标模型
+    // 子集列表回车需要走删除逻辑
+    if (enterComplete.needDelete && enterComplete.needDelete.length) {
+      let line = this.textModel_.getLineByIndex(startIndex);
+      let lineStart = startIndex - line.length;
+      let deleteStart = lineStart + enterComplete.needDelete[0];
+      let deleteEnd = lineStart + enterComplete.needDelete[1];
+      this.apply(new RemoveTextOperation(deleteStart, deleteEnd));
+      startIndex -= (deleteEnd - deleteStart);
+    } else {
+      const cursorDelta = enterComplete.cursorDelta === undefined ? text.length : enterComplete.cursorDelta;
+      this.apply(new InsertTextOperation(text, startIndex));
+      startIndex += cursorDelta;
+    }
+    this.setSelection(startIndex); // 更新选区光标模型
   }
 
   /** 任意位置插入字符串，光标保持在原位置 */
@@ -221,14 +231,16 @@ export class Editor {
     this.focus();
   }
 
+  // 回车或者tab等输入时自动补齐源码，如代码块、列表等
   beforeInsert (input: string) {
     let cursorDelta: number | undefined;
+    let needDelete: Array<number> = [];
     let originInput = input;
     if (input === '\n') {
-      const inDom = this.view_.inDom('table');
-      if (inDom) {
+      const inTable = this.view_.inDom('table');
+      if (inTable) {
          // TODO 表格中回车，其他的补充输入后续都考虑利用view的inDom方法来识别，而不是在creater里面再去解析一次
-        const sourceIndex = inDom.sourceIndex;
+        const sourceIndex = inTable.sourceIndex;
         const textL = this.textModel_.getLength();
         // md解析渲染时已经隐藏了表格后面的一个空白行
         input = sourceIndex[1] === textL ? '\n\n' : '\n';
@@ -247,15 +259,22 @@ export class Editor {
           }
           const completeResult = this.markdownStringCompleter_.complete({ line });
           if (completeResult) {
-            line = completeResult.lineRest;
-            input += preSpacerOrTab + completeResult.completeInput;
-            if (completeResult.cursor !== undefined) {
-              // 代码块源码模式不做自动补齐，暂时不太优雅地在此处处理
-              if (this.config_.mode !== ViewMode.RENDER) {
-                return { input: originInput };
+            // 列表回车时需要回退上一级tab，因此实际是行首的tab，如当前是一级tab，则删除列表符合
+            if (completeResult.needDeleteTab) {
+              needDelete = preLen ? [0, 1] : [0, line.length];
+              break;
+            } else {
+              line = completeResult.lineRest;
+              input += preSpacerOrTab + completeResult.completeInput;
+              if (completeResult.cursor !== undefined) {
+                // 代码块源码模式不做自动补齐，暂时不太优雅地在此处处理
+                if (this.config_.mode !== ViewMode.RENDER) {
+                  return { input: originInput };
+                }
+                cursorDelta = completeResult.cursor + 1;
               }
-              cursorDelta = completeResult.cursor + 1;
             }
+            
           } else {
             break;
           }
@@ -274,9 +293,11 @@ export class Editor {
         input = '\\|';
       }
     }
-    return { input, cursorDelta };
+    return { input, cursorDelta, needDelete };
   }
 
+
+  // 回退删除时自动删除额外的内容，如列表的前缀符号
   beforeDelete () {
     if (this.config_.mode !== ViewMode.RENDER) {
       return { deleteLen: 1 };
@@ -307,7 +328,7 @@ export class Editor {
         line = deleteResult.lineRest;
         deleteLen = deleteResult.deleteLen;
         if (deleteResult.cursor !== undefined && deleteResult.cursor > 0) {
-          cursorDelta = deleteResult.cursor; // 先往后移动光标
+          cursorDelta = deleteResult.cursor; // 先移动光标
         }
       } else {
         break;
