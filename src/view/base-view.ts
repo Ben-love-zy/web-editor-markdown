@@ -85,7 +85,7 @@ export class BaseView extends EventEmitter {
     // this.selectionModel_.on(SelectionModel.EVENT_TYPE.SELECTION_CHANGE, this.updateDomSelectionBinder_);
 
     // dom 选区事件
-    this.domSelectionChangeHandlerBinder_ = debounce(this.domSelectionChangeHandler.bind(this), 50);
+    this.domSelectionChangeHandlerBinder_ = debounce(this.domSelectionChangeHandler.bind(this), 100);
     window.document.addEventListener('selectionchange', this.domSelectionChangeHandlerBinder_);
   }
 
