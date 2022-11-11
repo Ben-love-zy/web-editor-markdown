@@ -40,3 +40,9 @@ import { EditorViewMode } from "web-editor-markdown";
 editor.switchViewMode(EditorViewMode.PREVIEW); // 切换模式：实时渲染、预览、源码、双屏模式，或者通过 cmd+/ 切换源码模式和实时渲染模式
 console.log('content', editor.getContent()); // 获取编辑内容
 ```
+
+* 源码本地运行
+```shell
+npm install;
+npm start;
+```
