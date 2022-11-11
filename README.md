@@ -43,6 +43,6 @@ console.log('content', editor.getContent()); // 获取编辑内容
 
 * 源码本地运行
 ```shell
-npm install;
-npm start;
+npm install
+npm start
 ```
