@@ -78,7 +78,8 @@ export class ListItemCreater extends Creater {
 
 	canComplete (task: ICompleterProps) {
 		let lineRest = task.line;
-		const bulletMatch = lineRest.match(ListItemCreater.reBulletListMarker); // 无序列表
+		let bulletMatch = lineRest.match(ListItemCreater.reBulletListMarker); // 无序列表
+		let orderedMatch = null;
 		let completerResult = null;
 		// let needDeletePreLine = false; // 是否需要删除上一行
 		// 非空列表行
@@ -101,7 +102,7 @@ export class ListItemCreater extends Creater {
 				}
 			}
 		} else {
-			const orderedMatch = lineRest.match(ListItemCreater.reOrderedListMarker); // 有序列表
+			orderedMatch = lineRest.match(ListItemCreater.reOrderedListMarker); // 有序列表
 			if (orderedMatch) {
 				lineRest = lineRest.slice(orderedMatch[0].length)
 				if (lineRest) {
@@ -114,7 +115,7 @@ export class ListItemCreater extends Creater {
 				}
 			}
 		}
-		if (!lineRest) {
+		if ((bulletMatch || orderedMatch) && (!lineRest)) {
 			completerResult = {
 				completeInput: '',
 				lineRest,
