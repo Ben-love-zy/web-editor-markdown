@@ -1,7 +1,7 @@
 {
   "name": "web-editor-markdown",
-  "version": "1.0.6",
-  "description": "支持协同编辑的 web 版 Markdown 编辑器",
+  "version": "1.0.7",
+  "description": "A markdown editor in browser, supports collaborative editing",
   "main": "dist/index.min.js",
   "types": "dist/index.d.ts",
   "files": [
@@ -22,8 +22,7 @@
     "markdown",
     "editor",
     "web",
-    "Collaborative editing",
-    "在线编辑器"
+    "Collaborative editing"
   ],
   "author": "Yong Zeng<303328447@qq.com>",
   "license": "MIT",

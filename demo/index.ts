@@ -4,9 +4,9 @@ const container = document.getElementById('myEditor');
 
 let editor: Editor;
 if (container) {
-  editor = withUndoRedo(new Editor(container, { placeholder: '请输入内容！'}));
+  editor = withUndoRedo(new Editor(container, { placeholder: 'Please input your texts'}));
   editor.insertTextAtCursor(text);
-  console.log('获取内容', editor.getContent());
+  console.log('all contents', editor.getContent());
   const btns = document.getElementsByClassName('mode-btn');
   window['changeMode'] = (n: number) => {
     for (let i = 0; i < btns.length; i++) {
