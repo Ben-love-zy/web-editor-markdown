@@ -3,6 +3,7 @@
 <img width=130 alt="web-editor-markdown" src="https://gitee.com/zengyong2020/web-editor-markdown/raw/master/markdown.jpeg" />
 <br>
 A markdown editor in browser, supports collaborative editing
+<br><br>
 <a title="npm bundle size" target="_blank" href="https://www.npmjs.com/package/web-editor-markdown"><img alt="npm bundle size" src="https://img.shields.io/bundlephobia/minzip/web-editor-markdown?style=flat-square&color=blueviolet"></a>
 <a title="Version" target="_blank" href="https://www.npmjs.com/package/web-editor-markdown"><img src="https://img.shields.io/npm/v/web-editor-markdown.svg?style=flat-square"></a>
 <a title="Downloads" target="_blank" href="https://www.npmjs.com/package/web-editor-markdown"><img src="https://img.shields.io/npm/dt/web-editor-markdown.svg?style=flat-square&color=97ca00"></a>

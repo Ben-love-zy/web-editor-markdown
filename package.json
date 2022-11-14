@@ -1,6 +1,6 @@
 {
   "name": "web-editor-markdown",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "A markdown editor in browser, supports collaborative editing",
   "main": "dist/index.min.js",
   "types": "dist/index.d.ts",
