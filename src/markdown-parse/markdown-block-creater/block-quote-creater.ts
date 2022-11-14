@@ -44,6 +44,12 @@ export class BlockQuoteCreater extends Creater {
 					completeInput: blockQuoteMatch[0],
 					lineRest
 				}
+      } else {
+        completerResult = {
+          completeInput: '',
+          lineRest,
+          needDeleteTab: true
+        }
       }
     }
     return completerResult;
