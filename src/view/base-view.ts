@@ -9,6 +9,7 @@ import EventEmitter from "events";
 import { Parser, HtmlRenderer } from "../markdown-parse/lib/index.js";
 import markdown from "../markdown-parse"
 import { debounce } from "../utils/debounce";
+import { hasClass } from "../utils/hasClass";
 
 export interface IDomPoint {
   domNode: HTMLElement;
@@ -199,7 +200,7 @@ export class BaseView extends EventEmitter {
     const sourceIndex = [0, 0];
     if (domNode instanceof Text) {
       const textL = domNode.length;
-      if (domNode.previousElementSibling) {
+      if (domNode.previousElementSibling && !hasClass(domNode.previousElementSibling, 'editor-marker')) {
         const preIndexStr = domNode.previousElementSibling.getAttribute('i');
         if (preIndexStr) {
           const preIndexRange = preIndexStr.split('-');
