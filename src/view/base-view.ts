@@ -42,12 +42,19 @@ export class BaseView extends EventEmitter {
   /** 鼠标或键盘导致的原生 dom 选区变化，同步到选区模型 */
   domSelectionChangeHandler (e: Event) {
     const domSelection = window.getSelection();
-    let selection: SelectionCustom | null = null;
+    const selectionFromModel = this.selectionModel_.getSelection();
+    let selectionFromDom: SelectionCustom | null = null;
     if (domSelection) {
-      selection = this.domSelToCustomSel(domSelection);
+      selectionFromDom = this.domSelToCustomSel(domSelection);
+      /** 
+       * 如果即将更新到 dom 的选区和当前 dom 本身的选区一致，则不需操作dom。这里的判断逻辑是否影响光标操作体验待测试。
+       * 两个原因：1.避免冗余的dom操作；2.如果变化原因本身就是 dom 自身触发的，若数据模型再去触发 dom 更新，陷入循环
+       */
+      if (!SelectionModel.isEqual(selectionFromDom, selectionFromModel)) {
+        this.emit(BaseView.EVENT_TYPE.SELECTION_CHANGE, selectionFromDom);
+        this.updateDomSelection ()
+      }
     }
-    this.showMarker(domSelection);
-    this.emit(BaseView.EVENT_TYPE.SELECTION_CHANGE, selection);
   }
 
   /** 更新 dom 真实选区 */
@@ -57,13 +64,6 @@ export class BaseView extends EventEmitter {
     if (domSelection) {
       // const selectionFromDom = this.domSelToCustomSel(domSelection);
       const selectionFromModel = this.selectionModel_.getSelection();
-      // TODO：见下面注释
-      /** 
-       * 如果即将更新到 dom 的选区和当前 dom 本身的选区一致，则不需操作dom。这里的判断逻辑是否影响光标操作体验待测试。
-       * 两个原因：1.避免冗余的dom操作；2.如果变化原因本身就是 dom 自身触发的，若数据模型再去触发 dom 更新，陷入循环
-       * 补充解释：注释掉，暂时不需要判断了，因为当前已经取消了对selectionModel事件的订阅，因此只有view的主动调用才会执行此函数
-       */
-      // if (!SelectionModel.isEqual(selectionFromDom, selectionFromModel)) {
       domSelection.removeAllRanges();
       const range = this.customSelToDomSel(selectionFromModel);
       if (range) {
@@ -71,7 +71,6 @@ export class BaseView extends EventEmitter {
         // 立即调用showmarker，避免在marker之间输入时，marker触发延时导致闪烁的问题
         this.showMarker(domSelection);
       }
-      // }
     }
   }
 
@@ -183,10 +182,14 @@ export class BaseView extends EventEmitter {
 
   /** TODO 此方法应该被不同渲染模式子类重写 */
   domPointToCustomPoint (domPoint: IDomPoint) {
-    let domNode = domPoint.domNode;  
+    let domNode = domPoint.domNode; 
+    const domOffset = domPoint.domOffset;
     const sourceIndex = this.getNodeSource_(domNode);
-    let domOffset = domPoint.domOffset;
     let point = sourceIndex[0] + domOffset;
+    if(domNode.previousElementSibling && hasClass(domNode.previousElementSibling, 'editor-marker')&& domOffset === 0){
+      const preSourceIndex = this.getNodeSource_(domNode.previousElementSibling  as HTMLElement);
+      point = preSourceIndex[0] + domOffset
+    }
     if (!(domNode instanceof Text) && domOffset > 0) { // domOffset>0 ,因此一定存在子元素
       const childNodes = domNode.childNodes;
       const domOffsetSourceIndex = this.getNodeSource_(childNodes[domOffset - 1] as HTMLElement);
@@ -200,7 +203,7 @@ export class BaseView extends EventEmitter {
     const sourceIndex = [0, 0];
     if (domNode instanceof Text) {
       const textL = domNode.length;
-      if (domNode.previousElementSibling && !hasClass(domNode.previousElementSibling, 'editor-marker')) {
+      if (domNode.previousElementSibling) {
         const preIndexStr = domNode.previousElementSibling.getAttribute('i');
         if (preIndexStr) {
           const preIndexRange = preIndexStr.split('-');
