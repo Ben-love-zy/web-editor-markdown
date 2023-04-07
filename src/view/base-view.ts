@@ -186,7 +186,7 @@ export class BaseView extends EventEmitter {
     const domOffset = domPoint.domOffset;
     const sourceIndex = this.getNodeSource_(domNode);
     let point = sourceIndex[0] + domOffset;
-    if(domNode.previousElementSibling && hasClass(domNode.previousElementSibling, 'editor-marker')&& domOffset === 0){
+    if(domNode.previousElementSibling && hasClass(domNode.previousElementSibling, 'editor-marker') && domOffset === 0){
       const preSourceIndex = this.getNodeSource_(domNode.previousElementSibling  as HTMLElement);
       point = preSourceIndex[0] + domOffset
     }
