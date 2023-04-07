@@ -186,13 +186,27 @@ export class BaseView extends EventEmitter {
     const domOffset = domPoint.domOffset;
     const sourceIndex = this.getNodeSource_(domNode);
     let point = sourceIndex[0] + domOffset;
-    // 如果当前节点具有 marker，且当前光标选择首部（offset = 0），则更新光标位置为 marker 之前。
-    if(domNode.previousElementSibling && hasClass(domNode.previousElementSibling, 'editor-marker') && domOffset === 0){
-      const preSourceIndex = this.getNodeSource_(domNode.previousElementSibling  as HTMLElement);
-      point = preSourceIndex[0]
-      // 用于判断是否需要更新光标位置
-      this.needUpdateSelection_ = true
+    
+    /*
+     * 如果当前是文本节点，则判断文本之前的节点是否有 marker 节点（h1、h2、h3、h4、h5、h6）,否则判断父节点是否
+     * 有 marker 节点（a标签、strong标签等）
+     */
+    if (domNode instanceof Text) {
+      let elementDom: HTMLElement | null = null
+      if(domNode.previousElementSibling){
+        elementDom = domNode.previousElementSibling as HTMLElement
+      }else if(domNode.parentElement && domNode.parentElement.previousElementSibling){
+        elementDom = domNode.parentElement.previousElementSibling as HTMLElement
+      }
+      // 如果当前节点具有 marker，且当前光标选择首部（offset = 0），则更新光标位置为 marker 之前。
+      if(elementDom && hasClass(elementDom, 'editor-marker') && domOffset === 0){
+        const preSourceIndex = this.getNodeSource_(elementDom  as HTMLElement);
+        point = preSourceIndex[0]
+        // 用于判断是否需要更新光标位置
+        this.needUpdateSelection_ = true
+      }
     }
+    
     if (!(domNode instanceof Text) && domOffset > 0) { // domOffset>0 ,因此一定存在子元素
       const childNodes = domNode.childNodes;
       const domOffsetSourceIndex = this.getNodeSource_(childNodes[domOffset - 1] as HTMLElement);
