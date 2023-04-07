@@ -44,11 +44,11 @@ export class BaseView extends EventEmitter {
   /** 鼠标或键盘导致的原生 dom 选区变化，同步到选区模型 */
   domSelectionChangeHandler (e: Event) {
     const domSelection = window.getSelection();
-    let selectionFromDom: SelectionCustom | null = null;
+    let selection: SelectionCustom | null = null;
     if (domSelection) {
-      selectionFromDom = this.domSelToCustomSel(domSelection);
+      selection = this.domSelToCustomSel(domSelection);
       this.showMarker(domSelection);
-      this.emit(BaseView.EVENT_TYPE.SELECTION_CHANGE, selectionFromDom);
+      this.emit(BaseView.EVENT_TYPE.SELECTION_CHANGE, selection);
       // 判断当前是否需要改变光标位置
       if( this.needUpdateSelection_ ) {
         this.updateDomSelection();
@@ -68,6 +68,8 @@ export class BaseView extends EventEmitter {
       domSelection.removeAllRanges();
       if (range) {
         domSelection.addRange(range);
+        // updateDomSelection 方法只负责更新光标位置，更新 marker 逻辑放在外面。
+        // this.showMarker(domSelection)
       }
     }
   }
