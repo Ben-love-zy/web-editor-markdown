@@ -23,6 +23,8 @@ export class BaseView extends EventEmitter {
   protected selectionModel_: SelectionModel;
   protected viewContainer_: HTMLElement;
 
+  // 用于判断是否需要更新光标位置
+  private needUpdateSelection_: boolean = false;
   private renderBinder_: any;
   // private updateDomSelectionBinder_: any;
   private domSelectionChangeHandlerBinder_: any;
@@ -42,17 +44,16 @@ export class BaseView extends EventEmitter {
   /** 鼠标或键盘导致的原生 dom 选区变化，同步到选区模型 */
   domSelectionChangeHandler (e: Event) {
     const domSelection = window.getSelection();
-    const selectionFromModel = this.selectionModel_.getSelection();
     let selectionFromDom: SelectionCustom | null = null;
     if (domSelection) {
       selectionFromDom = this.domSelToCustomSel(domSelection);
-      /** 
-       * 如果即将更新到 dom 的选区和当前 dom 本身的选区一致，则不需操作dom。这里的判断逻辑是否影响光标操作体验待测试。
-       * 两个原因：1.避免冗余的dom操作；2.如果变化原因本身就是 dom 自身触发的，若数据模型再去触发 dom 更新，陷入循环
-       */
-      if (!SelectionModel.isEqual(selectionFromDom, selectionFromModel)) {
-        this.emit(BaseView.EVENT_TYPE.SELECTION_CHANGE, selectionFromDom);
-        this.updateDomSelection ()
+      this.showMarker(domSelection);
+      this.emit(BaseView.EVENT_TYPE.SELECTION_CHANGE, selectionFromDom);
+      // 判断当前是否需要改变光标位置
+      if( this.needUpdateSelection_ ) {
+        this.updateDomSelection();
+        // 重置状态
+        this.needUpdateSelection_ = false
       }
     }
   }
@@ -62,14 +63,11 @@ export class BaseView extends EventEmitter {
     // TODO 暂时不放timer里，到时测试一下性能
     const domSelection = window.getSelection();
     if (domSelection) {
-      // const selectionFromDom = this.domSelToCustomSel(domSelection);
       const selectionFromModel = this.selectionModel_.getSelection();
-      domSelection.removeAllRanges();
       const range = this.customSelToDomSel(selectionFromModel);
+      domSelection.removeAllRanges();
       if (range) {
         domSelection.addRange(range);
-        // 立即调用showmarker，避免在marker之间输入时，marker触发延时导致闪烁的问题
-        this.showMarker(domSelection);
       }
     }
   }
@@ -186,9 +184,12 @@ export class BaseView extends EventEmitter {
     const domOffset = domPoint.domOffset;
     const sourceIndex = this.getNodeSource_(domNode);
     let point = sourceIndex[0] + domOffset;
+    // 如果当前节点具有 marker，且当前光标选择首部（offset = 0），则更新光标位置为 marker 之前。
     if(domNode.previousElementSibling && hasClass(domNode.previousElementSibling, 'editor-marker') && domOffset === 0){
       const preSourceIndex = this.getNodeSource_(domNode.previousElementSibling  as HTMLElement);
-      point = preSourceIndex[0] + domOffset
+      point = preSourceIndex[0]
+      // 用于判断是否需要更新光标位置
+      this.needUpdateSelection_ = true
     }
     if (!(domNode instanceof Text) && domOffset > 0) { // domOffset>0 ,因此一定存在子元素
       const childNodes = domNode.childNodes;
@@ -317,8 +318,12 @@ export class BaseView extends EventEmitter {
     // console.error('customMark-Html', markdown.md2html(this.textModel_.getSpacer()))
     // console.timeEnd('customMark-time')
     // this.viewContainer_.innerHTML = this.textModel_.getSpacer()
+    const domSelection = window.getSelection();
     this.viewContainer_.innerHTML = markdown.md2html(this.textModel_.getSpacer())
+    // 更新光标位置
     this.updateDomSelection();
+    // 显示隐藏的 marker
+    this.showMarker(domSelection);
     // this.viewContainer_.scrollTop = this.viewContainer_.scrollHeight;
   }
 
